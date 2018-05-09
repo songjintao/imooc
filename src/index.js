@@ -11,6 +11,8 @@ import './config'
 import Login from './container/login/login'
 import Register from './container/register/register'
 
+import AuthRoute from './component/authroute/authroute'
+
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : f => f//支持redux扩展
 
 const store = createStore(reducers, compose(
@@ -18,19 +20,19 @@ const store = createStore(reducers, compose(
     reduxDevtools
 ))
 
+function Boss() {
+    return <h2>BOSS页面</h2>
+}
+
 ReactDom.render(
     (
         <Provider store={store}>
             <BrowserRouter>
                 <div>
-                    {/* <Switch>
-                        <Route path='/login' exact component={Auth}></Route>
-                        <Route path='/dashboard' component={Dashboard}></Route>
-                        <Redirect to='/dashboard'></Redirect>
-                    </Switch> */}
+                    <AuthRoute></AuthRoute>
+                    <Route path='/boss' component={Boss}></Route>
                     <Route path='/login' component={Login}></Route>
                     <Route path='/register' component={Register}></Route>
-                    {/* 只渲染第一次命中的组件 */}
                 </div>
             </BrowserRouter>
         </Provider>

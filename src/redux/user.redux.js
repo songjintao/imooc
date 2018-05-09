@@ -13,11 +13,11 @@ const initState = {
 
 // reducer
 export function user(state = initState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case REGISTER_SUCCESS:
-            return {...state, msg: ''}
+            return { ...state, msg: '', isAuth: true, ...action.payload }
         case ERROR_MSG:
-            return
+            return { ...state, isAuth: false, msg: action.msg }
         default:
             return state
     }
@@ -37,7 +37,7 @@ export function register({ user, pwd, repeatpwd, type }) {
             .then(res => {
                 if (res.status === 200 && res.data.code === 200) {
                     dispatch(registerSuccess({ user, pwd, type }))
-                }else {
+                } else {
                     dispatch(errorMsg(res.data.msg))
                 }
             })
@@ -52,5 +52,5 @@ function errorMsg(msg) {
 }
 
 function registerSuccess(data) {
-    return {type: REGISTER_SUCCESS, payload: data}
+    return { type: REGISTER_SUCCESS, payload: data }
 }

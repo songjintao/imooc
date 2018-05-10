@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { withRouter }from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 @withRouter
 class AuthRoute extends React.Component {
@@ -27,9 +27,7 @@ class AuthRoute extends React.Component {
     }
 
     render() {
-        return (
-            <h3>authroute</h3>
-        )
+        return null
     }
 }
 export default AuthRoute

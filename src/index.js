@@ -13,6 +13,8 @@ import Register from './container/register/register'
 
 import AuthRoute from './component/authroute/authroute'
 
+import './error-msg.css'
+
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : f => f//支持redux扩展
 
 const store = createStore(reducers, compose(

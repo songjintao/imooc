@@ -37,7 +37,6 @@ Router.get('/remove', async (req, res)=> {
 })
 
 Router.post('/register', async (req, res) => {
-    console.log(req.body)
     const { user, pwd, type } = req.body
 
     User.findOne({ user }, async (err, doc) => {
@@ -45,11 +44,22 @@ Router.post('/register', async (req, res) => {
             return res.json({ code: -1, msg: '用户名重复' })
         }
 
-        User.create({ user, type, pwd: utils.md5(pwd) }, async (err, doc) => {
-            if (err) {
+        // User.create({ user, type, pwd: utils.md5(pwd) }, async (e, doc) => {
+        //     if (e) {
+        //         return res.json({ code: -1, msg: '后端出错了' })
+        //     }
+        //     return res.json({ code: 200, msg: '注册成功!', data: doc})
+        // })
+
+        const userModel = new User({user, type, pwd: utils.md5(pwd)})
+
+        userModel.save(async (e, d)=> {
+            if(e) {
                 return res.json({ code: -1, msg: '后端出错了' })
             }
-            return res.json({ code: 200, msg: '注册成功!'})
+            const { user, type, _id } = d
+            res.cookie('userid', _id)
+            return res.json({ code: 200, msg: '注册成功!', data: { user, type, _id }})
         })
     })
 })
@@ -69,6 +79,24 @@ Router.post('/login', async (req, res) => {
             return res.json({ code: -1, msg: '用户名不存在' })
         }
     })
+})
+
+
+Router.post('/update', async (req,res)=>{
+    const userid = req.cookies.userid
+    if(!userid) {
+        return res.json({code: -1})
+    }
+    const body = req.body
+    User.findByIdAndUpdate(userid, body, async (err, doc)=> {
+        // const { user, type } = body
+        const data = Object.assign({}, {
+            user: doc.user,
+            type: doc.type
+        }, body)
+        return res.json({code: 200, data: data })
+    })
+
 })
 
 module.exports = Router

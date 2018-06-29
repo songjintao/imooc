@@ -7,7 +7,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
 
 const initState = {
-    isAuth: '',
+    isAuth: false,
     msg: '',
     user: '',
     pwd: '',
@@ -18,7 +18,7 @@ const initState = {
 export function user(state = initState, action) {
     switch (action.type) {
         case AUTH_SUCCESS:
-            return { ...state, msg: '', redirectTo: getRedirectPath(action.payload), ...action.payload }
+            return { ...state, isAuth: true, msg: '', redirectTo: getRedirectPath(action.payload), ...action.payload }
         // case LOGIN_SUCCESS:
         //     return { ...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload }
         case LOAD_DATA:

@@ -36,5 +36,7 @@ class AuthRoute extends React.Component {
     render() {
         return null
     }
+
+
 }
 export default AuthRoute

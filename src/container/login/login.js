@@ -4,7 +4,6 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import {login} from '../../redux/user.redux'
-import '../../error-msg.css'
 
 @connect(
     state=> state.user,

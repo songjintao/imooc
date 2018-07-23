@@ -4,7 +4,7 @@ const model = require('./model')
 const User = model.getModel('user')
 const utils = require('utility')
 
-const _filter = {__v: 0}
+const _filter = { __v: 0, pwd: 0 }
 
 Router.get('/info', async (req, res) => {
     const {userid} = req.cookies
@@ -66,7 +66,7 @@ Router.post('/register', async (req, res) => {
 
 Router.post('/login', async (req, res) => {
     const { user, pwd } = req.body
-    User.findOne({ user }, _filter, async (err, doc) => {
+    User.findOne({ user }, async (err, doc) => {
         if (doc) {
             if(utils.md5(pwd) === doc.pwd){
                 doc['pwd'] = ''

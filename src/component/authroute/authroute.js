@@ -29,7 +29,7 @@ class AuthRoute extends React.Component {
             }
         })
         .catch(err=> {
-            throw Error(err)
+            throw  new Error(err)
         })
     }
 

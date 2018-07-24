@@ -23,8 +23,15 @@ Router.get('/info', async (req, res) => {
 })
 
 Router.get('/list', async (req, res) => {
-    User.find({}, async (err, doc) => {
-        return res.json(doc)
+    const {type} = req.query
+
+    User.find({type}, async (err, doc) => {
+        if(err) {
+            throw err
+        }
+        if(doc) {
+            return res.json({code: 200, msg:'', data: doc})
+        }
     })
 })
 

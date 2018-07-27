@@ -19,7 +19,8 @@ function User () {
 }
 
 @connect(
-    state=> state
+    state=> state,
+    {}
 )
 class Dashboard extends React.Component {
 
@@ -64,7 +65,8 @@ class Dashboard extends React.Component {
                 <NavBar className='fixd-header' mode='dark'>
                     {navList.find(v=> v.path == pathname).title}
                 </NavBar>
-                <div style={{marginTop:45}}>
+                {/* <div style={{marginTop:45}}> */}
+                <div>
                     <Switch>
                         {
                             navList.map(v=>(

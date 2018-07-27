@@ -14,19 +14,11 @@ class Boss extends React.Component{
             data: []
         }
     }
+
     componentDidMount() {
-        // axios.get('/useer/list?type=genius')
-        // .then(res=> {
-        //     if(res.data.code === 200) {
-        //         this.setState({data: res.data.data})
-        //     }
-        // })
-        // .catch(err=> {
-        //     throw err
-        // })
-        this.props.getUserList('genius')
+        this.props.getUserList('boss')
     }
-    
+
     render() {
         return (
             <WingBlank>

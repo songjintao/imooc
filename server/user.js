@@ -2,6 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const utils = require('utility')
 
 const _filter = { __v: 0, pwd: 0 }
@@ -104,6 +105,27 @@ Router.post('/update', async (req,res)=>{
         return res.json({code: 200, data: data })
     })
 
+})
+
+
+Router.get('/getmsglist', (req, res)=> {
+    const userid = req.cookies.userid
+
+    User.find({}, (e, userdoc)=> {
+        if(e) {
+            throw e
+        }
+        let users = {}
+        userdoc.forEach(v=> {
+            users[v._id] = { name: v.user, avatar: v.avatar }
+        })
+        Chat.find({'$or': [{from: userid}, {to: userid}]}, (err, doc)=> {
+            if(!err) {
+                return res.json({code: 200, data: doc, users: users })
+            }
+            throw err
+        })
+    })
 })
 
 module.exports = Router

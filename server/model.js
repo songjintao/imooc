@@ -13,7 +13,6 @@ const models = {
         user: { type: String, require: true },
         pwd: { type: String, require: true },
         type: { type: String, require: true },
-
         avatar: { type: String},
         desc: { type: String },//简介
         title: { type: String },//职位名
@@ -21,7 +20,12 @@ const models = {
         money: { type: String }
     },
     chat: {
-
+        from: {type: String, require: true},
+        to: {type: String, require: true},
+        chatid: {type: String, require: true},
+        content: {type: String, require: true, default: ''},
+        create_time: {type: Number, require: true, default: new Date().getTime()},
+        read: {type: Boolean, default: false}
     }
 }
 
